@@ -2,12 +2,12 @@
 module.exports = {
   darkMode: ["class"],
   content: [
-    "./pages//*.{js,jsx}",
-    "./components//*.{js,jsx}",
-    "./app//*.{js,jsx}",
-    "./src//*.{js,jsx}",
+    "./pages/**/*.{js,jsx}",
+    "./components/**/*.{js,jsx}",
+    "./app/**/*.{js,jsx}",
+    "./src/**/*.{js,jsx}",
     // "./node_modules/flowbite//*.js",
-    "./node_modules/flowbite-react/lib//*.js",
+    "./node_modules/flowbite-react/lib/**/*.js",
   ],
   prefix: "",
   theme: {

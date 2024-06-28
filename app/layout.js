@@ -6,7 +6,7 @@ import Footer from "@/components/frontend/Footer";
 import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
 import { usePathname } from "next/navigation"
-
+import "../styles/main.scss";
 const inter = Inter({ subsets: ["latin"] });
 
 export default function RootLayout({ children }) {
