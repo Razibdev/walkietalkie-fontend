@@ -5,20 +5,34 @@ import Link from 'next/link';
 
 export default function Header() {
   const [products, setProducts] = useState(null);
-    const endpoint = "api/v1/cart"; // Replace 'your-endpoint' with the actual endpoint
+  let sessionId = localStorage.getItem('sessionId');
+  // const endpoint = "/api/v1/cart?session_id="+sessionId; // Replace 'your-endpoint' with the actual endpoint
 
-    useEffect(() => {
-      async function fetchData() {
-        try {
-          const data = await getData(endpoint, false);
-          setProducts(data.data);
-        } catch (error) {
-          console.log(error);
-        }
-      }
+  // useEffect(() => {
+  //   async function fetchData() {
+  //     try {
+  //       const data = await getData(endpoint, false);
+  //       console.log(data);
+  //       setProducts(data.data);
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   }
 
-      fetchData();
-    }, [endpoint]);
+  //   fetchData();
+  // }, [endpoint]);
+
+  async function getCart() {
+    let sessionId = localStorage.getItem('sessionId');
+    const res = await fetch(process.env.NEXT_PUBLIC_BASE_URL + "/api/v1/cart?session_id="+sessionId,{
+      method: 'GET',
+        headers: {'Content-Type': 'application/json'},
+    });
+    // setProducts(data);
+    console.log(res);
+  }
+  getCart();
+
   return (
     <div>
       {/* Preloader */}
@@ -107,7 +121,7 @@ export default function Header() {
               <div className="col-lg-3 col-md-3 col-7">
                 {/* Start Header Logo */}
                 <Link className="navbar-brand" href="/">
-                  <img src="/assets/images/logo/logo.svg" alt="Logo"/>
+                  <img src="/assets/images/logo/logo.svg" alt="Logo" />
                 </Link>
                 {/* End Header Logo */}
               </div>
@@ -129,7 +143,7 @@ export default function Header() {
                       </div>
                     </div>
                     <div className="search-input">
-                      <input type="text" placeholder="Search"/>
+                      <input type="text" placeholder="Search" />
                     </div>
                     <div className="search-btn">
                       <button><i className="lni lni-search-alt"></i></button>
@@ -166,26 +180,7 @@ export default function Header() {
                           <Link href="/cart">View Cart</Link>
                         </div>
                         <ul className="shopping-list">
-                        {products &&
-                          products.map((item, i) => {
-                          return (
-                              <li>
-                                <a href="javascript:void(0)" className="remove" title="Remove this item"><i
-                                  className="lni lni-close"></i></a>
-                                <div className="cart-img-head">
-                                  <Link className="cart-img" href="/product/details">
-                                    <img src="assets/images/header/cart-items/item1.jpg" alt="#" />
-                                  </Link>
-                                </div>
-
-                                <div className="content">
-                                  <h4><a href="product-details.html">
-                                    Apple Watch Series 6</a></h4>
-                                  <p className="quantity">1x - <span className="amount">$99.00</span></p>
-                                </div>
-                              </li>
-                              );
-                            })}
+                          
                         </ul>
                         <div className="bottom">
                           <div className="total">
