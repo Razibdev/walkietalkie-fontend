@@ -93,7 +93,7 @@ export default function page() {
                                                 </p>
                                             </div>
                                             <div className="col-lg-2 col-md-2 col-12">
-                                                <input className="cartQty" type="number" value={product?.quantity} />
+                                                <input className="cartQty" type="number" value={product?.quantity} /> 
                                                 {/*
                                                 <div className="count-input">
                                                     <select className="form-control">
