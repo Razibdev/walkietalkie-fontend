@@ -40,6 +40,7 @@ export default function Sidebar({ showSidebar, setShowSidebar, logout }) {
     { title: "Categories", icon: LayoutList, href: "/dashboard/categories" },
     { title: "Attributes", icon: SendToBack, href: "/dashboard/attributes" },
     { title: "Coupons", icon: ScanSearch, href: "/dashboard/coupons" },
+    { title: "Banners", icon: MonitorPlay, href: "/dashboard/banners" },
     { title: "Store Sliders", icon: MonitorPlay, href: "/dashboard/sliders" },
   ];
 

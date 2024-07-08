@@ -9,22 +9,21 @@ import FormHeader from "@/components/FormInputs/FormHeader";
 import { makePatchImageRequest } from "@/lib/apiRequest";
 import { useForm } from "react-hook-form";
 import ImageUpload from "@/components/backoffice/ImageUpload";
-import MulImageUpload from "@/components/backoffice/MulImageUpload";
-export default function UpdateCategory() {
+export default function UpdateBrand() {
   const { id } = useParams();
   
   const [loading, setLoading] = useState(false);
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [selectedFile, setSelectedFile] = useState([]);
 
-  const [category, setCategory] = useState(null);
-  const endpoint = "api/v1/categories/" + id; // Replace 'your-endpoint' with the actual endpoint
+  const [brands, setBrands] = useState(null);
+  const endpoint = "api/v1/brands/" + id; // Replace 'your-endpoint' with the actual endpoint
 
   useEffect(() => {
     async function fetchData() {
       try {
         const data = await getData(endpoint, true);
-        setCategory(data.data);
+        setBrands(data.data);
       } catch (error) {
         console.log(error);
       }
@@ -39,7 +38,7 @@ export default function UpdateCategory() {
     reset,
     formState: { errors },
   } = useForm({
-    defaultValues: category,
+    defaultValues: brands,
   });
 
   const onImagesChange = (uploadedImages) => {
@@ -52,8 +51,7 @@ export default function UpdateCategory() {
 
   async function onSubmit(data) {
     const formData = new FormData();
-    formData.append("category_name", data.category_name);
-    formData.append("category_description", data.category_description);
+    formData.append("brand_name", data.brand_name);
     formData.append("file", selectedFile);
 
     for (let i = 0; i < selectedFiles.length; i++) {
@@ -64,7 +62,7 @@ export default function UpdateCategory() {
       setLoading,
       endpoint,
       formData,
-      "Category Update",
+      "Brand Update",
       true
     );
   }
@@ -73,7 +71,7 @@ export default function UpdateCategory() {
     <div>
       <div>
         {/* Header */}
-        <FormHeader title="New Category" href="/dashboard/category" />
+        <FormHeader title="New Brand" href="/dashboard/brand" />
         {/* Form */}
         <form
           onSubmit={handleSubmit(onSubmit)}
@@ -81,19 +79,11 @@ export default function UpdateCategory() {
         >
           <div className="grid gap-4 sm:grid-cols-2 sm:gap-6">
             <TextInput
-              label="Category Name"
-              name="category_name"
+              label="Brand Name"
+              name="brand_name"
               register={register}
               errors={errors}
-              defaultValue={category?.category_name ?? ""}
-              isRequired={false}
-            />
-            <TextareaInput
-              label="Category Description"
-              name="category_description"
-              register={register}
-              errors={errors}
-              defaultValue={category?.category_description ?? ""}
+              defaultValue={brands?.brand_name ?? ""}
               isRequired={false}
             />
           </div>
@@ -101,21 +91,15 @@ export default function UpdateCategory() {
             <ImageUpload
               onImageChange={onImageChange}
               title="Feature Image"
-              initialImagePreview={category?.image_url}
+              initialImagePreview={brands?.image_url}
             />
-            <div className="mt-4">
-              <MulImageUpload
-                onImagesChange={onImagesChange}
-                title="Gallery Image"
-                initialImagePreview={category?.group_image}
-              />
-            </div>
+            
           </div>
           <div className="flex justify-end">
             <SubmitButton
               isLoading={loading}
-              loadingTitle="Updating Category Please Wait..."
-              title="Update Category"
+              loadingTitle="Updating Brand Please Wait..."
+              title="Update Brand"
             />
           </div>
         </form>

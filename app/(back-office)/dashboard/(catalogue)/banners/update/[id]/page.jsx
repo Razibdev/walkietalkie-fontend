@@ -17,14 +17,14 @@ export default function UpdateCategory() {
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [selectedFile, setSelectedFile] = useState([]);
 
-  const [category, setCategory] = useState(null);
-  const endpoint = "api/v1/categories/" + id; // Replace 'your-endpoint' with the actual endpoint
+  const [banners, setBanners] = useState(null);
+  const endpoint = "api/v1/banners/" + id; // Replace 'your-endpoint' with the actual endpoint
 
   useEffect(() => {
     async function fetchData() {
       try {
         const data = await getData(endpoint, true);
-        setCategory(data.data);
+        setBanners(data.data);
       } catch (error) {
         console.log(error);
       }
@@ -39,7 +39,7 @@ export default function UpdateCategory() {
     reset,
     formState: { errors },
   } = useForm({
-    defaultValues: category,
+    defaultValues: banners,
   });
 
   const onImagesChange = (uploadedImages) => {
@@ -52,8 +52,7 @@ export default function UpdateCategory() {
 
   async function onSubmit(data) {
     const formData = new FormData();
-    formData.append("category_name", data.category_name);
-    formData.append("category_description", data.category_description);
+    formData.append("banner_name", data.banner_name);
     formData.append("file", selectedFile);
 
     for (let i = 0; i < selectedFiles.length; i++) {
@@ -73,7 +72,7 @@ export default function UpdateCategory() {
     <div>
       <div>
         {/* Header */}
-        <FormHeader title="New Category" href="/dashboard/category" />
+        <FormHeader title="New Category" href="/dashboard/banner" />
         {/* Form */}
         <form
           onSubmit={handleSubmit(onSubmit)}
@@ -81,19 +80,11 @@ export default function UpdateCategory() {
         >
           <div className="grid gap-4 sm:grid-cols-2 sm:gap-6">
             <TextInput
-              label="Category Name"
-              name="category_name"
+              label="Banner Name"
+              name="banner_name"
               register={register}
               errors={errors}
-              defaultValue={category?.category_name ?? ""}
-              isRequired={false}
-            />
-            <TextareaInput
-              label="Category Description"
-              name="category_description"
-              register={register}
-              errors={errors}
-              defaultValue={category?.category_description ?? ""}
+              defaultValue={banners?.banner_name ?? ""}
               isRequired={false}
             />
           </div>
@@ -101,21 +92,21 @@ export default function UpdateCategory() {
             <ImageUpload
               onImageChange={onImageChange}
               title="Feature Image"
-              initialImagePreview={category?.image_url}
+              initialImagePreview={banners?.image_url}
             />
             <div className="mt-4">
               <MulImageUpload
                 onImagesChange={onImagesChange}
                 title="Gallery Image"
-                initialImagePreview={category?.group_image}
+                initialImagePreview={banners?.group_image}
               />
             </div>
           </div>
           <div className="flex justify-end">
             <SubmitButton
               isLoading={loading}
-              loadingTitle="Updating Category Please Wait..."
-              title="Update Category"
+              loadingTitle="Updating Banner Please Wait..."
+              title="Update Banner"
             />
           </div>
         </form>

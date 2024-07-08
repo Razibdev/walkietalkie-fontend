@@ -10,7 +10,7 @@ import { generateSlug } from "@/lib/generateSlug";
 import TextFile from "@/components/FormInputs/TextFile";
 import { makePostImageRequest } from "@/lib/apiRequest";
 
-export default function NewCategory({ initialData = {}, isUpdate = false }) {
+export default function NewSlider({ initialData = {}, isUpdate = false }) {
   const [imagePreviews, setImagePreviews] = useState([]);
   const [selectedFiles, setSelectedFiles] = useState([]);
   const {
@@ -63,18 +63,17 @@ export default function NewCategory({ initialData = {}, isUpdate = false }) {
     data.slug = slug;
 
       const formData = new FormData();
-            formData.append('category_name', data.title);
-            formData.append('category_slug', slug);
-            formData.append('category_description', data.description)
+            formData.append('slider_name', data.title);
+            formData.append('slider_slug', slug);
       // for (let i = 0; i < selectedFiles.length; i++) {
       //   formData.append("images[]", selectedFiles[i]);
       // }
 
       makePostImageRequest(
         setLoading,
-        "api/v1/categories",
+        "api/v1/sliders",
         formData,
-        "Categories",
+        "Sliders",
         reset,
         true
       );
@@ -87,22 +86,22 @@ export default function NewCategory({ initialData = {}, isUpdate = false }) {
   //       // Update request
   //       makePutRequest(
   //         setLoading,
-  //         `api/categories/${initialData.id}`,
+  //         `api/sliders/${initialData.id}`,
   //         data,
-  //         "Category",
+  //         "Slider",
   //         redirect,
   //         reset
   //       );
   //     } else {
-  //       makePostRequest(setLoading, "api/categories", data, "Category", reset);
+  //       makePostRequest(setLoading, "api/sliders", data, "Slider", reset);
   //     }
   //   }
   return (
     <div>
       {/* Header */}
       <FormHeader
-        title={isUpdate ? "Update Category" : "New Category"}
-        href="/dashboard/inventory/categories"
+        title={isUpdate ? "Update Slider" : "New Slider"}
+        href="/dashboard/inventory/sliders"
       />
       {/* Form */}
       <form
@@ -111,14 +110,8 @@ export default function NewCategory({ initialData = {}, isUpdate = false }) {
       >
         <div className="grid gap-4 sm:grid-cols-2 sm:gap-6">
           <TextInput
-            label="Category Title"
+            label="Slider Title"
             name="title"
-            register={register}
-            errors={errors}
-          />
-          <TextareaInput
-            label="Category Description"
-            name="description"
             register={register}
             errors={errors}
           />
@@ -154,8 +147,8 @@ export default function NewCategory({ initialData = {}, isUpdate = false }) {
         </div>
         <SubmitButton
           isLoading={loading}
-          loadingTitle="Creating Category Please Wait..."
-          title={isUpdate ? "Updated Category" : "Create Category"}
+          loadingTitle="Creating Slider Please Wait..."
+          title={isUpdate ? "Updated Slider" : "Create Slider"}
         />
       </form>
     </div>

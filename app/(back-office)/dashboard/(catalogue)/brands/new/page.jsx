@@ -63,18 +63,17 @@ export default function NewCategory({ initialData = {}, isUpdate = false }) {
     data.slug = slug;
 
       const formData = new FormData();
-            formData.append('category_name', data.title);
-            formData.append('category_slug', slug);
-            formData.append('category_description', data.description)
+            formData.append('brand_name', data.title);
+            formData.append('brand_slug', slug);
       // for (let i = 0; i < selectedFiles.length; i++) {
       //   formData.append("images[]", selectedFiles[i]);
       // }
 
       makePostImageRequest(
         setLoading,
-        "api/v1/categories",
+        "api/v1/brands",
         formData,
-        "Categories",
+        "Brands",
         reset,
         true
       );
@@ -101,8 +100,8 @@ export default function NewCategory({ initialData = {}, isUpdate = false }) {
     <div>
       {/* Header */}
       <FormHeader
-        title={isUpdate ? "Update Category" : "New Category"}
-        href="/dashboard/inventory/categories"
+        title={isUpdate ? "Update Brand" : "New Brand"}
+        href="/dashboard/inventory/brands"
       />
       {/* Form */}
       <form

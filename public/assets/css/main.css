@@ -6525,6 +6525,9 @@ blockquote span {
   -webkit-box-shadow: none;
           box-shadow: none;
 }
+.cartQty {
+  width: 100px;
+}
 
 /*======================================
    End Shopping Cart CSS

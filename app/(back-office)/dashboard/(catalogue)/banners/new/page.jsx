@@ -63,16 +63,15 @@ export default function NewCategory({ initialData = {}, isUpdate = false }) {
     data.slug = slug;
 
       const formData = new FormData();
-            formData.append('category_name', data.title);
-            formData.append('category_slug', slug);
-            formData.append('category_description', data.description)
+            formData.append('banner_name', data.title);
+            formData.append('banner_slug', slug);
       // for (let i = 0; i < selectedFiles.length; i++) {
       //   formData.append("images[]", selectedFiles[i]);
       // }
 
       makePostImageRequest(
         setLoading,
-        "api/v1/categories",
+        "api/v1/banners",
         formData,
         "Categories",
         reset,
@@ -87,14 +86,14 @@ export default function NewCategory({ initialData = {}, isUpdate = false }) {
   //       // Update request
   //       makePutRequest(
   //         setLoading,
-  //         `api/categories/${initialData.id}`,
+  //         `api/banners/${initialData.id}`,
   //         data,
   //         "Category",
   //         redirect,
   //         reset
   //       );
   //     } else {
-  //       makePostRequest(setLoading, "api/categories", data, "Category", reset);
+  //       makePostRequest(setLoading, "api/banners", data, "Category", reset);
   //     }
   //   }
   return (
@@ -102,7 +101,7 @@ export default function NewCategory({ initialData = {}, isUpdate = false }) {
       {/* Header */}
       <FormHeader
         title={isUpdate ? "Update Category" : "New Category"}
-        href="/dashboard/inventory/categories"
+        href="/dashboard/inventory/banners"
       />
       {/* Form */}
       <form

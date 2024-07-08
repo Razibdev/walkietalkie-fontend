@@ -17,6 +17,7 @@ export default function page() {
 
   const router = useRouter();
   const setData = (data) =>{
+    localStorage.setItem("_id", data._id);
     localStorage.setItem("name", data.name);
     localStorage.setItem("email", data.email);
     localStorage.setItem("gender", data.gender);

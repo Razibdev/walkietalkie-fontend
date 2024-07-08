@@ -6,32 +6,31 @@ import Link from 'next/link';
 export default function Header() {
   const [products, setProducts] = useState(null);
   let sessionId = localStorage.getItem('sessionId');
-  // const endpoint = "/api/v1/cart?session_id="+sessionId; // Replace 'your-endpoint' with the actual endpoint
+  let userId = localStorage.getItem('_id');
+  let userName = localStorage.getItem('name');
+  let userEmail = localStorage.getItem('email');
+  const endpoint = "api/v1/cart?session_id=" + sessionId; // Replace 'your-endpoint' with the actual endpoint
 
-  // useEffect(() => {
-  //   async function fetchData() {
-  //     try {
-  //       const data = await getData(endpoint, false);
-  //       console.log(data);
-  //       setProducts(data.data);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   }
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const data = await getData(endpoint, false);
+        setProducts(data.data[0]);
+      } catch (error) {
+        console.log(error);
+      }
+    }
 
-  //   fetchData();
-  // }, [endpoint]);
+    fetchData();
+  }, [endpoint]);
 
-  async function getCart() {
-    let sessionId = localStorage.getItem('sessionId');
-    const res = await fetch(process.env.NEXT_PUBLIC_BASE_URL + "/api/v1/cart?session_id="+sessionId,{
-      method: 'GET',
-        headers: {'Content-Type': 'application/json'},
-    });
-    // setProducts(data);
-    console.log(res);
-  }
-  getCart();
+  // async function getCart() {
+  //   let sessionId = localStorage.getItem('sessionId');
+  //   const res = await fetch(process.env.NEXT_PUBLIC_BASE_URL + "/api/v1/cart?session_id=a1b36aa1-7647-4b67-86fd-ce4b81d933b2");
+  //   // setProducts(JSON.stringify(res.data));
+  //   console.log(JSON.stringify(res));
+  // }
+  // getCart();
 
   return (
     <div>
@@ -96,18 +95,27 @@ export default function Header() {
               </div>
               <div className="col-lg-4 col-md-4 col-12">
                 <div className="top-end">
-                  <div className="user">
-                    <i className="lni lni-user"></i>
-                    Hello
-                  </div>
-                  <ul className="user-login">
-                    <li>
-                      <Link href="/login">Sign In</Link>
-                    </li>
-                    <li>
-                      <Link href="/register">Register</Link>
-                    </li>
-                  </ul>
+                  {userId ? (
+                    <div class="dropdown">
+                      <button class="btn dropdown-toggle useroptions border-0 text-white" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                        {userName}
+                      </button>
+                      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <li><a class="dropdown-item" href="#">Action</a></li>
+                        <li><a class="dropdown-item" href="#">Another action</a></li>
+                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                      </ul>
+                    </div>
+                  ) : (
+                    <ul className="user-login">
+                      <li>
+                        <Link href="/login">Sign In</Link>
+                      </li>
+                      <li>
+                        <Link href="/register">Register</Link>
+                      </li>
+                    </ul>
+                  )}
                 </div>
               </div>
             </div>
@@ -171,21 +179,38 @@ export default function Header() {
                     <div className="cart-items">
                       <a href="javascript:void(0)" className="main-btn">
                         <i className="lni lni-cart"></i>
-                        <span className="total-items">2</span>
+                        <span className="total-items">{products?.total_quantity > 0 ? products?.total_quantity : 0}</span>
                       </a>
                       {/* Shopping Item */}
                       <div className="shopping-item">
                         <div className="dropdown-cart-header">
-                          <span>2 Items</span>
+                          <span>{products?.total_quantity > 0 ? products?.total_quantity : 0} Items</span>
                           <Link href="/cart">View Cart</Link>
                         </div>
                         <ul className="shopping-list">
-                          
+                          {products?.items &&
+                            products?.items.map((product, i) => {
+                              return (
+                                <li>
+                                  <a href="javascript:void(0)" class="remove" title="Remove this item"><i
+                                    class="lni lni-close"></i></a>
+                                  <div class="cart-img-head">
+                                    <a class="cart-img" href={`/product/${product?.product?.product_slug}`}><img
+                                      src={product?.feature_image} alt={product?.product?.product_name} /></a>
+                                  </div>
+
+                                  <div class="content">
+                                    <h4><a href={`/product/${product?.product_slug}`}>{product?.product?.product_name}</a></h4>
+                                    <p class="quantity">{product?.quantity}x - <span class="amount">${product?.price ? product?.price : 0}</span></p>
+                                  </div>
+                                </li>
+                              );
+                            })}
                         </ul>
                         <div className="bottom">
                           <div className="total">
                             <span>Total</span>
-                            <span className="total-amount">$134.00</span>
+                            <span className="total-amount">${products?.total_amount > 0 ? products?.total_amount : 0}</span>
                           </div>
                           <div className="button">
                             <Link href="/checkout" className="btn animate">Checkout</Link>
