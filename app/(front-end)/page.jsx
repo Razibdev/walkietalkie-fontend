@@ -1,5 +1,6 @@
 import React from 'react';
 import TrendingProduct from "@/components/frontend/home/TrendingProduct";
+import HeroSlider from './home/HeroSlider';
 
 export default function page() {
   return (
@@ -10,44 +11,8 @@ export default function page() {
         <div className="container">
           <div className="row">
             <div className="col-lg-8 col-12 custom-padding-right">
-              <div className="slider-head">
-                {/* Start Hero Slider */}
-                <div class="hero-slider">
-                  {/* Start Single Slider */}
-                  <div class="single-slider"
-                    style={{ backgroundImage: `url(/assets/images/hero/slider-bg1.jpg)` }}>
-                    <div class="content">
-                      <h2><span>No restocking fee ($35 savings)</span>
-                        M75 Sport Watch
-                      </h2>
-                      <p>Lorem ipsum dolor sit amet, consectetur elit, sed do eiusmod tempor incididunt ut
-                        labore dolore magna aliqua.</p>
-                      <h3><span>Now Only</span> $320.99</h3>
-                      <div class="button">
-                        <a href="product-grids.html" class="btn">Shop Now</a>
-                      </div>
-                    </div>
-                  </div>
-                  {/* End Single Slider */}
-                  {/* Start Single Slider */}
-                  <div class="single-slider"
-                    style={{ backgroundImage: `url(/assets/images/hero/slider-bg2.jpg)` }}>
-                    <div class="content">
-                      <h2><span>Big Sale Offer</span>
-                        Get the Best Deal on CCTV Camera
-                      </h2>
-                      <p>Lorem ipsum dolor sit amet, consectetur elit, sed do eiusmod tempor incididunt ut
-                        labore dolore magna aliqua.</p>
-                      <h3><span>Combo Only:</span> $590.00</h3>
-                      <div class="button">
-                        <a href="product-grids.html" class="btn">Shop Now</a>
-                      </div>
-                    </div>
-                  </div>
-                  {/* End Single Slider */}
-                </div>
-                {/* End Hero Slider */}
-              </div>
+            {/* React slider */}
+               <HeroSlider />
             </div>
             <div className="col-lg-4 col-12">
               <div className="row">
