@@ -1,5 +1,9 @@
 import React from 'react';
 import TrendingProduct from "@/components/frontend/home/TrendingProduct";
+<<<<<<< HEAD
+=======
+import HeroSlider from './home/HeroSlider';
+>>>>>>> 9b85663b26e16cd7b68e1d3a241333bca8126825
 
 export default function page() {
   return (
@@ -10,6 +14,7 @@ export default function page() {
         <div className="container">
           <div className="row">
             <div className="col-lg-8 col-12 custom-padding-right">
+<<<<<<< HEAD
               <div className="slider-head">
                 {/* Start Hero Slider */}
                 <div class="hero-slider">
@@ -48,6 +53,10 @@ export default function page() {
                 </div>
                 {/* End Hero Slider */}
               </div>
+=======
+            {/* React slider */}
+               <HeroSlider />
+>>>>>>> 9b85663b26e16cd7b68e1d3a241333bca8126825
             </div>
             <div className="col-lg-4 col-12">
               <div className="row">

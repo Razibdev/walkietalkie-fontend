@@ -27,7 +27,13 @@
     "react-dom": "^18",
     "react-hook-form": "^7.51.1",
     "react-hot-toast": "^2.4.1",
+<<<<<<< HEAD
     "sass": "^1.77.6",
+=======
+    "react-slick": "^0.30.2",
+    "sass": "^1.77.6",
+    "slick-carousel": "^1.8.1",
+>>>>>>> 9b85663b26e16cd7b68e1d3a241333bca8126825
     "tailwind-merge": "^2.2.1",
     "tailwindcss-animate": "^1.0.7",
     "uuid": "^10.0.0"
