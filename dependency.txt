@@ -1,0 +1,10 @@
+tailwind css
+https://flowbite.com/
+//api purpose
+https://mockaroo.com/
+// ui design
+https://ui.shadcn.com/docs/installation/next
+// icon 
+https://lucide.dev/
+
+https://desishub.notion.site/LIMI-ECOMMERCE-cd56bdca27a94fc1af6d9da1374ecb86
