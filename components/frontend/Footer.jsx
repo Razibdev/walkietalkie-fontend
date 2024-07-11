@@ -89,8 +89,8 @@ export default function Footer() {
                     <ul>
                       <li><Link href="/about-us">About Us</Link></li>
                       <li><Link href="/contact-us">Contact Us</Link></li>
-                      <li><Link href="javascript:void(0)">Downloads</Link></li>
-                      <li><Link href="javascript:void(0)">Sitemap</Link></li>
+                      <li><Link href="/terms-and-conditions">Terms and Conditions</Link></li>
+                      <li><Link href="/privacy-policy">Privacy Policy</Link></li>
                       <li><Link href="/faq">FAQs Page</Link></li>
                     </ul>
                   </div>
