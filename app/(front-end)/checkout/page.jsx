@@ -5,13 +5,25 @@ import Link from 'next/link';
 
 export default function page() {
     const [products, setProducts] = useState(null);
+
     const [isSave, setVat] = useState(60);
     const [isShipping, setShipping] = useState(100);
-    let sessionId = localStorage.getItem('sessionId');
-    let userId = localStorage.getItem('_id');
+
+    const [sessionId, setSessionId] = useState(null);
+    const [userId, setUserId] = useState(null);
+
+    useEffect(() => {
+      // Check if localStorage is available
+      if (typeof window !== "undefined") {
+        const sessionId = localStorage.getItem("sessionId");
+        const userId = localStorage.getItem("_id");
+
+        setSessionId(sessionId);
+        setUserId(userId);
+      }
+    }, []);
+
     const endpoint = "api/v1/cart?session_id=" + sessionId; // Replace 'your-endpoint' with the actual endpoint
-
-
 
     useEffect(() => {
         async function fetchData() {
@@ -214,6 +226,7 @@ export default function page() {
                                     <li>
                                         <h6 className="title" data-bs-toggle="collapse" data-bs-target="#collapseThree"
                                             aria-expanded="true" aria-controls="collapseThree">Your Personal Details </h6>
+                                            
                                         <section className="checkout-steps-form-content collapse show" id="collapseThree"
                                             aria-labelledby="headingThree" data-bs-parent="#accordionExample">
                                             <div className="row">

@@ -5,10 +5,27 @@ import Link from 'next/link';
 
 export default function Header() {
   const [products, setProducts] = useState(null);
-  let sessionId = localStorage.getItem('sessionId');
-  let userId = localStorage.getItem('_id');
-  let userName = localStorage.getItem('name');
-  let userEmail = localStorage.getItem('email');
+ const [sessionId, setSessionId] = useState(null);
+ const [userId, setUserId] = useState(null);
+ const [userName, setUserName] = useState(null);
+ const [userEmail, setUserEmail] = useState(null);
+
+ useEffect(() => {
+   // Check if localStorage is available (client-side)
+   if (typeof window !== "undefined") {
+     let sessionId = localStorage.getItem("sessionId");
+     let userId = localStorage.getItem("_id");
+     let userName = localStorage.getItem("name");
+     let userEmail = localStorage.getItem("email");
+
+     // Set state values
+     setSessionId(sessionId);
+     setUserId(userId);
+     setUserName(userName);
+     setUserEmail(userEmail);
+   }
+ }, []); 
+
   const endpoint = "api/v1/cart?session_id=" + sessionId; // Replace 'your-endpoint' with the actual endpoint
 
   useEffect(() => {
