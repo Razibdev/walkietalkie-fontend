@@ -2,9 +2,11 @@
 import React, { useState, useEffect } from "react";
 import { getData } from "@/lib/getData";
 import Link from 'next/link';
+import { useRouter } from "next/navigation";
 
 export default function page() {
     const [products, setProducts] = useState(null);
+    const router = useRouter()
 
     const [isSave, setVat] = useState(60);
     const [isShipping, setShipping] = useState(100);

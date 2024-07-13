@@ -29,7 +29,7 @@ export default function page() {
     setProducts(updatedProducts);
 
     // Optionally, send the update to your backend
-    updateProductQuantity(updatedProducts._id, updatedProducts.items[index]._id, newQuantity);
+    updateProductQuantity(updatedProducts._id, updatedProducts.items[index].product._id, newQuantity);
   };
 
   const updateProductQuantity = async (order_id, product_id, quantity) => {
