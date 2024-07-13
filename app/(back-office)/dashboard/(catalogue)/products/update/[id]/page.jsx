@@ -11,13 +11,27 @@ import { useForm } from "react-hook-form";
 import ImageUpload from "@/components/backoffice/ImageUpload";
 import TextFile from "@/components/FormInputs/TextFile";
 import MulImageUpload from "@/components/backoffice/MulImageUpload";
+import SelectInputc from "@/components/FormInputs/SelectInputc";
+import useSWR from "swr";
+import fetcher from "@/lib/fetcher";
 export default function UpdateCategory() {
   const { id } = useParams();
 
   const [loading, setLoading] = useState(false);
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [selectedFile, setSelectedFile] = useState([]);
-  const [imagePreviews, setImagePreviews] = useState([]);
+  const [category, setCategory] = useState([]);
+
+  const {
+    data: categoryData,
+    error: categoryError,
+    isLoading: categoryLoading,
+  } = useSWR(`api/v1/categories`, fetcher);
+  console.log("categories", categoryData);
+
+  useEffect(() => {
+    setCategory(categoryData);
+  }, [categoryData]);
 
   const [product, setProduct] = useState(null);
   const endpoint = "api/v1/products/" + id; // Replace 'your-endpoint' with the actual endpoint
@@ -52,46 +66,20 @@ export default function UpdateCategory() {
     setSelectedFile(file);
   };
 
-  const handleFileChange = (event) => {
-    const files = event.target.files;
-    const previews = [];
-    const newFiles = [];
-
-    // Iterate through selected files and create image previews
-    for (let i = 0; i < files.length; i++) {
-      const file = files[i];
-      const reader = new FileReader();
-
-      reader.onload = (e) => {
-        previews.push(e.target.result);
-        newFiles.push(file);
-        if (previews.length === files.length) {
-          // Once all previews are generated, update state
-          setImagePreviews(previews);
-          setSelectedFiles(newFiles);
-        }
-      };
-
-      reader.readAsDataURL(file);
-    }
-  };
-
-  // Function to remove an image preview and its corresponding file
-  const removeImagePreview = (index) => {
-    const updatedPreviews = [...imagePreviews];
-    updatedPreviews.splice(index, 1);
-    setImagePreviews(updatedPreviews);
-
-    const updatedFiles = [...selectedFiles];
-    updatedFiles.splice(index, 1);
-    setSelectedFiles(updatedFiles);
-  };
   async function onSubmit(data) {
     const formData = new FormData();
-    formData.append("category_name", data.category_name);
-    formData.append("category_description", data.category_description);
-    formData.append("file", selectedFile);
+    formData.append("product_name", data.product_name);
+    formData.append("product_description", data.product_description);
+    formData.append("sale_price", data.sale_price);
+    formData.append("purchase_price", data.purchase_price);
+    formData.append("stock", data.stock);
+    formData.append("minimum_sale", data.minimum_sale);
+    formData.append("unit", data.unit);
+    // formData.append("status_type", data.status_type);
+    formData.append("product_type", data.product_type);
+    formData.append("category_id", data.category_id);
 
+    formData.append("file", selectedFile);
     for (let i = 0; i < selectedFiles.length; i++) {
       formData.append("files", selectedFiles[i]);
     }
@@ -115,11 +103,17 @@ export default function UpdateCategory() {
           onSubmit={handleSubmit(onSubmit)}
           className="w-full max-w-4xl p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-slate-700 dark:border-slate-700 mx-auto my-3"
         >
-
           <div className="">
+            <SelectInputc
+              label="Category"
+              name="category_id"
+              register={register}
+              options={category}
+              className="sm:col-span-1"
+            />
             <TextInput
-              label="Product Title"
-              name="title"
+              label="Product Name"
+              name="product_name"
               register={register}
               errors={errors}
               defaultValue={product?.product_name ?? ""}
@@ -171,48 +165,18 @@ export default function UpdateCategory() {
                 errors={errors}
                 defaultValue={product?.unit ?? ""}
               />
-              <TextInput
-                label="Category"
-                name="category_id"
-                register={register}
-                errors={errors}
-                defaultValue={product?.category_id?.category_name ?? ""}
-              />
             </div>
-            <TextFile
-              label="Feature Images"
-              name="file"
-              register={register}
-              errors={errors}
-              onChange={handleFileChange}
-            />
-            <TextFile
-              label="Multi Images"
-              name="files"
-              register={register}
-              errors={errors}
-              onChange={handleFileChange}
-            />
-            <div>
-              {imagePreviews.map((preview, index) => (
-                <div
-                  key={index}
-                  style={{ display: "inline-block", marginRight: "10px" }}
-                >
-                  <img
-                    src={preview}
-                    alt={`Image ${index + 1}`}
-                    style={{
-                      maxWidth: "100px",
-                      maxHeight: "100px",
-                      marginRight: "5px",
-                    }}
-                  />
-                  <button onClick={() => removeImagePreview(index)}>
-                    Remove
-                  </button>
-                </div>
-              ))}
+            <div className="mt-6">
+              <ImageUpload
+                onImageChange={onImageChange}
+                title="Feature Image"
+              />
+              <div className="mt-4">
+                <MulImageUpload
+                  onImagesChange={onImagesChange}
+                  title="Gallery Image"
+                />
+              </div>
             </div>
           </div>
 
@@ -223,7 +187,6 @@ export default function UpdateCategory() {
               title="Update Category"
             />
           </div>
-
         </form>
       </div>
     </div>

@@ -43,7 +43,7 @@ export default function CustomProjectTable() {
    await makeDeleteRequest(
           setLoading,
           "api/v1/products/"+id,
-          "Category",
+          "Product",
           true
     )
     setCount(count+1);
@@ -124,7 +124,7 @@ export default function CustomProjectTable() {
                       {/* <img src={item.image} alt={item.category_name} /> */}
                       <div style={{ width: "100px", height: "100px" }}>
                         <ImageFile
-                          src={item.image_url}
+                          src={item.feature_image}
                           alt={item.product_name}
                           className="h-full w-full"
                         />
@@ -142,9 +142,7 @@ export default function CustomProjectTable() {
                       {/* {new Date(item.createdAt).toLocaleDateString()} */}
                       {item.sale_price}
                     </td>
-                    <td className="px-6 py-4">
-                      {item.stock}
-                    </td>
+                    <td className="px-6 py-4">{item.stock}</td>
                     <td className="px-6 py-4">
                       {item.category_id?.category_name}
                     </td>
@@ -154,7 +152,10 @@ export default function CustomProjectTable() {
                       </Link>
 
                       {/* <Trash2 className="w-8 h-8 cursor-pointer" /> */}
-                      <AlertDialogCom id={item._id} deleteConfirm={handleDelete} />
+                      <AlertDialogCom
+                        id={item._id}
+                        deleteConfirm={handleDelete}
+                      />
 
                       {/* <Link
                         href={`/dashboard/projects/${item.pid}/order`}
