@@ -59,12 +59,10 @@ export default function NewCategory({ initialData = {}, isUpdate = false }) {
    };
 
   async function onSubmit(data) {
-    const slug = generateSlug(data.title);
-    data.slug = slug;
 
       const formData = new FormData();
             formData.append('title', data.title);
-            formData.append('banner_slug', slug);
+            formData.append('description', data.description);
       // for (let i = 0; i < selectedFiles.length; i++) {
       //   formData.append("images[]", selectedFiles[i]);
       // }

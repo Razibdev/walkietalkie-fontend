@@ -5,15 +5,22 @@ import { getData } from "@/lib/getData";
 
 export default function Page() {
     const { id } = useParams();
-    const invoiceOrderData = async () => {
-        const response = await fetch(process.env.NEXT_PUBLIC_BASE_URL + "/api/v1/order/user_invoice_data/"+id, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          credentials: 'include'    
-        });
-      }
+    const [order, setOrder] = useState(null);
+    const endpoint = "api/v1/order/user_invoice_data/"+id; // Replace 'your-endpoint' with the actual endpoint
 
-      invoiceOrderData();
+    useEffect(() => {
+        async function fetchData() {
+        try {
+            const data = await getData(endpoint, true);
+            setOrder(data.data[0]);
+        } catch (error) {
+            console.log(error);
+        }
+        }
+
+        fetchData();
+    }, [endpoint]);
+
 
     return (
         <div>
@@ -67,7 +74,7 @@ export default function Page() {
                         </p>
                     </div>
                 </div>
-
+                {order?.serial_number}
                 <div class="-mx-4 mt-8 flow-root sm:mx-0">
                     <table class="min-w-full">
                         <thead class="border-b border-gray-300 text-gray-900">
