@@ -63,7 +63,7 @@ export default function NewCategory({ initialData = {}, isUpdate = false }) {
     data.slug = slug;
 
       const formData = new FormData();
-            formData.append('banner_name', data.title);
+            formData.append('title', data.title);
             formData.append('banner_slug', slug);
       // for (let i = 0; i < selectedFiles.length; i++) {
       //   formData.append("images[]", selectedFiles[i]);
@@ -71,7 +71,7 @@ export default function NewCategory({ initialData = {}, isUpdate = false }) {
 
       makePostImageRequest(
         setLoading,
-        "api/v1/banners",
+        "api/v1/banner",
         formData,
         "Categories",
         reset,

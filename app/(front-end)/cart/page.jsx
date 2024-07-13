@@ -13,25 +13,53 @@ export default function page() {
     async function fetchData() {
       try {
         const data = await getData(endpoint, false);
-        console.log(data.data[0]);
         setProducts(data.data[0]);
       } catch (error) {
         console.log(error);
       }
     }
-    
+
 
     fetchData();
   }, [endpoint]);
 
-   const handleQuantityChange = (index, newQuantity) => {
-     const updatedProducts = { ...products };
-     updatedProducts.items[index].quantity = newQuantity;
-     setProducts(updatedProducts);
+  const handleQuantityChange = (index, newQuantity) => {
+    const updatedProducts = { ...products };
+    updatedProducts.items[index].quantity = newQuantity;
+    setProducts(updatedProducts);
 
-     // Optionally, send the update to your backend
-     // updateProductQuantity(updatedProducts.items[index].id, newQuantity);
-   };
+    // Optionally, send the update to your backend
+    updateProductQuantity(updatedProducts._id, updatedProducts.items[index]._id, newQuantity);
+  };
+
+  const updateProductQuantity = async (order_id, product_id, quantity) => {
+    const response = await fetch(process.env.NEXT_PUBLIC_BASE_URL + "/api/v1/cart/"+order_id, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+      body: JSON.stringify({
+        product_id: product_id,
+        quantity: quantity,
+      })
+
+
+    });
+  }
+
+
+  const handleRemoveProduct = async(index) => {
+    const updatedProducts = { ...products };
+
+    const response = await fetch(process.env.NEXT_PUBLIC_BASE_URL + "/api/v1/cart/"+updatedProducts._id+"/"+updatedProducts.items[index]._id, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+    });
+    updatedProducts.items?.splice(index, 1);
+    setProducts(updatedProducts);
+
+  }
+
 
 
   return (
@@ -143,7 +171,7 @@ export default function page() {
                         </p>
                       </div>
                       <div className="col-lg-1 col-md-2 col-12">
-                        <a className="remove-item" href="javascript:void(0)">
+                        <a className="remove-item" href="javascript:void(0)" onClick={() => handleRemoveProduct(i)} >
                           <i className="lni lni-close"></i>
                         </a>
                       </div>
@@ -177,7 +205,7 @@ export default function page() {
                     <div className="right">
                       <ul>
                         <li>
-                          Cart Subtotal<span>${products?.total_amount}</span>
+                          Cart Subtotal<span>${products?.items?.reduce((total, item) => total + parseFloat(item.price) * parseInt(item.quantity), 0)}</span>
                         </li>
                         <li>
                           Shipping<span>Free</span>
@@ -186,7 +214,7 @@ export default function page() {
                           You Save<span>${isSave}</span>
                         </li>
                         <li className="last">
-                          You Pay<span>${products?.total_amount - isSave}</span>
+                          You Pay<span>${products?.items?.reduce((total, item) => total + parseFloat(item.price) * parseInt(item.quantity), 0) - isSave}</span>
                         </li>
                       </ul>
                       <div className="button">

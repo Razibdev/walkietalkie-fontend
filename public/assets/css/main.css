@@ -1093,6 +1093,14 @@ ol {
   margin-left: -25px;
   border-radius: 2px;
 }
+.section-title.p-0.text-left {
+  text-align: left;
+  padding: 0;
+}
+.section-title.p-0.text-left h2::before {
+  left: 0;
+  margin-left: 0;
+}
 
 .section-title p {
   font-size: 14px;
@@ -6595,6 +6603,7 @@ blockquote span {
 
 .checkout-steps-form-style-1 .single-form .form-input {
   position: relative;
+  border-width: 0;
 }
 
 @media (max-width: 767px) {
@@ -8147,3 +8156,6 @@ blockquote span {
     display: none;
   }
 }
+
+
+

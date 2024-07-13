@@ -94,6 +94,9 @@ export default function page() {
                 <th scope="col" className="px-6 py-3">
                   Amount
                 </th>
+                <th scope="col" className="px-6 py-3">
+                  Invoice
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -134,6 +137,9 @@ export default function page() {
                       </td>
                       <td className="p-4">
                         ${item.amount}
+                      </td>
+                      <td className="p-4">
+                        <Link href={`/dashboard/orders/${item._id}`}>View</Link>
                       </td>
                     </tr>
                   );

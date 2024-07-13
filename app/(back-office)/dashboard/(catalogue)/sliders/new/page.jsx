@@ -63,15 +63,15 @@ export default function NewSlider({ initialData = {}, isUpdate = false }) {
     data.slug = slug;
 
       const formData = new FormData();
-            formData.append('slider_name', data.title);
-            formData.append('slider_slug', slug);
+            formData.append('title', data.title);
+            formData.append('slug', slug);
       // for (let i = 0; i < selectedFiles.length; i++) {
       //   formData.append("images[]", selectedFiles[i]);
       // }
 
       makePostImageRequest(
         setLoading,
-        "api/v1/sliders",
+        "api/v1/slider",
         formData,
         "Sliders",
         reset,

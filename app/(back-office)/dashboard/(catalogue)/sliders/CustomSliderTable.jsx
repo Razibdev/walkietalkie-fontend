@@ -15,7 +15,7 @@ export default function CustomProjectTable() {
      const PAGE_SIZE = 10;
      const [currentPage, setCurrentPage] = useState(1);
       const [totalResult, setTotalResult] = useState(1);
-   const endpoint = "api/v1/sliders"; // Replace 'your-endpoint' with the actual endpoint
+   const endpoint = "api/v1/slider"; // Replace 'your-endpoint' with the actual endpoint
 
    useEffect(() => {
      async function fetchData() {
@@ -42,7 +42,7 @@ export default function CustomProjectTable() {
   const handleDelete = async (id) =>{
    await makeDeleteRequest(
           setLoading,
-          "api/v1/sliders/"+id,
+          "api/v1/slider/"+id,
           "Slider",
           true
     )
@@ -78,11 +78,7 @@ export default function CustomProjectTable() {
 
 
               <th scope="col" className="px-6 py-3">
-                Slider
-              </th>
-
-              <th scope="col" className="px-6 py-3">
-                Description
+                Title
               </th>
              
               <th scope="col" className="px-6 py-3">
@@ -119,7 +115,7 @@ export default function CustomProjectTable() {
                       <div style={{ width: "100px", height: "100px" }}>
                         <ImageFile
                           src={item.image_url}
-                          alt={item.slider_name}
+                          alt={item.title}
                           className="h-full w-full"
                         />
                       </div>
@@ -129,13 +125,9 @@ export default function CustomProjectTable() {
                       scope="row"
                       className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                     >
-                      {item.slider_name}
+                      {item.title}
                     </th>
 
-                    <td className="px-6 py-4">
-                      {/* {new Date(item.createdAt).toLocaleDateString()} */}
-                      {item.slider_description}
-                    </td>
                     <td className="flex gap-4 px-6 py-4">
                       <Link href={`/dashboard/sliders/update/${item._id}`}>
                         <Pencil className="w-8 h-8" />

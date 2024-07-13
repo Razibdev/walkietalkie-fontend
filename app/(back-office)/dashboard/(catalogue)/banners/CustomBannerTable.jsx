@@ -15,7 +15,7 @@ export default function CustomProjectTable() {
      const PAGE_SIZE = 10;
      const [currentPage, setCurrentPage] = useState(1);
       const [totalResult, setTotalResult] = useState(1);
-   const endpoint = "api/v1/banners"; // Replace 'your-endpoint' with the actual endpoint
+   const endpoint = "api/v1/banner"; // Replace 'your-endpoint' with the actual endpoint
 
    useEffect(() => {
      async function fetchData() {
@@ -42,7 +42,7 @@ export default function CustomProjectTable() {
   const handleDelete = async (id) =>{
    await makeDeleteRequest(
           setLoading,
-          "api/v1/banners/"+id,
+          "api/v1/banner/"+id,
           "Banner",
           true
     )
@@ -78,7 +78,11 @@ export default function CustomProjectTable() {
 
 
               <th scope="col" className="px-6 py-3">
-                Banner
+                Title
+              </th>
+
+              <th scope="col" className="px-6 py-3">
+                Description
               </th>
              
               <th scope="col" className="px-6 py-3">
@@ -111,11 +115,11 @@ export default function CustomProjectTable() {
                     </td>
                     <td className="px-6 py-4">{item.pid}</td>
                     <td className="px-6 py-4">
-                      {/* <img src={item.image} alt={item.banner_name} /> */}
+                      {/* <img src={item.image} alt={item.title} /> */}
                       <div style={{ width: "100px", height: "100px" }}>
                         <ImageFile
                           src={item.image_url}
-                          alt={item.banner_name}
+                          alt={item.title}
                           className="h-full w-full"
                         />
                       </div>
@@ -125,7 +129,14 @@ export default function CustomProjectTable() {
                       scope="row"
                       className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                     >
-                      {item.banner_name}
+                      {item.title}
+                    </th>
+
+                    <th
+                      scope="row"
+                      className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                    >
+                      {item.description}
                     </th>
 
                     <td className="flex gap-4 px-6 py-4">

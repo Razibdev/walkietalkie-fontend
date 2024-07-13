@@ -1,8 +1,41 @@
-import React from 'react';
+"use client";
+import React, { useState, useEffect } from "react";
 import TrendingProduct from "@/components/frontend/home/TrendingProduct";
 import HeroSlider from './home/HeroSlider';
+import { getDataPaginate } from "@/lib/getData";
 
 export default function page() {
+
+  const [sliders, setData] = useState(null);
+  const [count, setCount] = useState(0);
+  const [loading, setLoading] = useState(false);
+  const PAGE_SIZE = 10;
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalResult, setTotalResult] = useState(1);
+  const endpoint = "api/v1/banner"; // Replace 'your-endpoint' with the actual endpoint
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const data = await getDataPaginate(endpoint, currentPage, PAGE_SIZE, true);
+        //  console.log("getdata", count);
+        //  console.log("getdata", data.data);
+        setData(data.data);
+        setTotalResult(data.all_result);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    fetchData();
+  }, [endpoint, currentPage, PAGE_SIZE, count]);
+
+
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
+
   return (
     <div>
 
@@ -16,32 +49,23 @@ export default function page() {
             </div>
             <div className="col-lg-4 col-12">
               <div className="row">
+              {sliders &&
+                sliders.map((item, i) => {
+                  return (
                 <div className="col-lg-12 col-md-6 col-12 md-custom-padding">
                   {/* Start Small Banner */}
-                  <div className="hero-small-banner" style={{ backgroundImage: `url('/assets/images/banner/banner-1-bg.jpg')` }}>
+                  <div className="hero-small-banner" style={{ backgroundImage: `url(${item?.image_url})` }}>
                     <div className="content">
                       <h2>
-                        <span>New line required</span>
-                        iPhone 12 Pro Max
+                      {item?.title}
                       </h2>
                       <h3>$259.99</h3>
                     </div>
                   </div>
                   {/* End Small Banner */}
                 </div>
-                <div className="col-lg-12 col-md-6 col-12">
-                  {/* Start Small Banner */}
-                  <div className="hero-small-banner style2">
-                    <div className="content">
-                      <h2>Weekly Sale!</h2>
-                      <p>Saving up to 50% off all online store items this week.</p>
-                      <div className="button">
-                        <a className="btn" href="product-grids.html">Shop Now</a>
-                      </div>
-                    </div>
-                  </div>
-                  {/* Start Small Banner */}
-                </div>
+                  );
+                })}
               </div>
             </div>
           </div>

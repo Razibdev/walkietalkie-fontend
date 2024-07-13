@@ -18,7 +18,7 @@ export default function UpdateSlider() {
   const [selectedFile, setSelectedFile] = useState([]);
 
   const [Slider, setSlider] = useState(null);
-  const endpoint = "api/v1/sliders/" + id; // Replace 'your-endpoint' with the actual endpoint
+  const endpoint = "api/v1/slider/" + id; // Replace 'your-endpoint' with the actual endpoint
 
   useEffect(() => {
     async function fetchData() {
@@ -52,7 +52,7 @@ export default function UpdateSlider() {
 
   async function onSubmit(data) {
     const formData = new FormData();
-    formData.append("Slider_name", data.Slider_name);
+    formData.append("title", data.title);
     formData.append("file", selectedFile);
 
     for (let i = 0; i < selectedFiles.length; i++) {
@@ -81,10 +81,10 @@ export default function UpdateSlider() {
           <div className="grid gap-4 sm:grid-cols-2 sm:gap-6">
             <TextInput
               label="Slider Name"
-              name="Slider_name"
+              name="title"
               register={register}
               errors={errors}
-              defaultValue={Slider?.Slider_name ?? ""}
+              defaultValue={Slider?.title ?? ""}
               isRequired={false}
             />
           </div>

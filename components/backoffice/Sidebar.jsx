@@ -41,7 +41,8 @@ export default function Sidebar({ showSidebar, setShowSidebar, logout }) {
     { title: "Attributes", icon: SendToBack, href: "/dashboard/attributes" },
     { title: "Coupons", icon: ScanSearch, href: "/dashboard/coupons" },
     { title: "Banners", icon: MonitorPlay, href: "/dashboard/banners" },
-    { title: "Store Sliders", icon: MonitorPlay, href: "/dashboard/sliders" },
+    { title: "Sliders", icon: MonitorPlay, href: "/dashboard/sliders" },
+    { title: "Orders", icon: MonitorPlay, href: "/dashboard/orders" },
   ];
 
   return (

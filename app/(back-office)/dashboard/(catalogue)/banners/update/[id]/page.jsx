@@ -18,7 +18,7 @@ export default function UpdateCategory() {
   const [selectedFile, setSelectedFile] = useState([]);
 
   const [banners, setBanners] = useState(null);
-  const endpoint = "api/v1/banners/" + id; // Replace 'your-endpoint' with the actual endpoint
+  const endpoint = "api/v1/banner/" + id; // Replace 'your-endpoint' with the actual endpoint
 
   useEffect(() => {
     async function fetchData() {
@@ -52,7 +52,7 @@ export default function UpdateCategory() {
 
   async function onSubmit(data) {
     const formData = new FormData();
-    formData.append("banner_name", data.banner_name);
+    formData.append("title", data.title);
     formData.append("file", selectedFile);
 
     for (let i = 0; i < selectedFiles.length; i++) {
@@ -81,10 +81,10 @@ export default function UpdateCategory() {
           <div className="grid gap-4 sm:grid-cols-2 sm:gap-6">
             <TextInput
               label="Banner Name"
-              name="banner_name"
+              name="title"
               register={register}
               errors={errors}
-              defaultValue={banners?.banner_name ?? ""}
+              defaultValue={banners?.title ?? ""}
               isRequired={false}
             />
           </div>
