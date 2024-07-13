@@ -53,6 +53,7 @@ export default function UpdateCategory() {
   async function onSubmit(data) {
     const formData = new FormData();
     formData.append("title", data.title);
+    formData.append("description", data.description);
     formData.append("file", selectedFile);
 
     for (let i = 0; i < selectedFiles.length; i++) {
@@ -78,13 +79,23 @@ export default function UpdateCategory() {
           onSubmit={handleSubmit(onSubmit)}
           className="w-full max-w-4xl p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-slate-700 dark:border-slate-700 mx-auto my-3"
         >
-          <div className="grid gap-4 sm:grid-cols-2 sm:gap-6">
+          <div className="grid gap-4 sm:grid-cols-2 sm:gap-6 mb-4">
             <TextInput
               label="Banner Name"
               name="title"
               register={register}
               errors={errors}
               defaultValue={banners?.title ?? ""}
+              isRequired={false}
+            />
+          </div>
+          <div className="grid gap-4 sm:grid-cols-2 sm:gap-6">
+            <TextareaInput
+              label="Category Description"
+              name="description"
+              register={register}
+              errors={errors}
+              defaultValue={banners?.description ?? ""}
               isRequired={false}
             />
           </div>
