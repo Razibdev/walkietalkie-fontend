@@ -32,6 +32,7 @@ export default function Header() {
     async function fetchData() {
       try {
         const data = await getData(endpoint, false);
+        console.log('product', data.data);
         setProducts(data.data[0]);
       } catch (error) {
         console.log(error);
@@ -217,7 +218,7 @@ export default function Header() {
                                   </div>
 
                                   <div class="content">
-                                    <h4><a href={`/product/${product?.product_slug}`}>{product?.product?.product_name}</a></h4>
+                                    <h4><a href={`/product/${product?.product?.product_slug}`}>{product?.product?.product_name}</a></h4>
                                     <p class="quantity">{product?.quantity}x - <span class="amount">${product?.price ? product?.price : 0}</span></p>
                                   </div>
                                 </li>
